@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="port-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php include('config.php'); ?>
+    <title>Data Evento</title>
+    <link rel="stylesheet" href="css\realiza.css">
+    <style>
+      * {
+    box-sizing: border-box;
+    font-family: Helvetica;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Helvetica, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: center;
+    padding: 20px;
+    margin: 40px auto;
+    max-width: 1000px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    margin-bottom: 20px;
+}
+
+.logo img {
+    width: 300px;
+    height: auto;
+    margin: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+h2 {
+    margin-top: 0;
+    color: #4d6ea6;
+}
+
+.form-control {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.form-control label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.form-control input[type="number"],
+.form-control input[type="datetime-local"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+input[type="submit"] {
+    background: #4d6ea6;
+    border: none;
+    border-radius: 5px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: background-color 0.4s, color 0.4s;
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+    background: #0d2d64;
+    color: #FFFFFF;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+a {
+    text-decoration: none;
+    color: #4d6ea6;
+}
+
+a:hover {
+    color: #182950;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo"><img src="img/1.png"> </div>
+        <form action="realiza.php" method="post" name="realiza">
+        <h2>Datas do Evento</h2>
+          <div class="form-control">
+
+            <label for="id_local">id local:</label>
+            <input type="number" id="id_local" name="id_local" class="field">
+          </div>
+          <div class="form-control">
+            <label for="id_evento">id evento:</label>
+            <input type="number" id="id_evento" name="id_evento" class="field">
+          </div>
+            <div class="form-control">
+                <label for="data_inicio">Data de início:</label>
+                <input type="datetime-local" id="data_inicio" name="data_inicio" class="field">
+              </div>
+              <div class="form-control">
+                <label for="data_fim">Data fim:</label>
+                <input type="datetime-local" id="data_fim" name="data_fim" class="field">
+              </div>
+
+              <input type="submit"  value="Gravar" name="botao">
+
+
+        </form>
+        <a href="index.html">Home</a>
+    </div>
+    <?php
+    if (@$_POST['botao'] == "Gravar") {
+        $id_local = $_POST['id_local'];
+        $id_evento = $_POST['id_evento'];
+        $data_inicio = $_POST['data_inicio'];
+        $data_fim = $_POST['data_fim'];
+
+        $insere = "INSERT into realiza(id_local, id_evento, data_inicio, data_fim ) VALUES ('$id_local', '$id_evento', '$data_inicio', '$data_fim')";
+        mysqli_query($mysqli, $insere) or die("Não foi possível inserir os dados");
+    }
+
+    ?>
+</body>
+</html>
